@@ -43,10 +43,19 @@ chrome.windows.getCurrent({ populate: true }, function(window) {
 			console.log(err)
 		})
 
+		const title = document.createElement('span')
+		title.appendChild(document.createTextNode(tab.title))
+		title.addEventListener('click', () => {
+			chrome.tabs.update(tab.id, { active: true }, (win) => {
+				console.log(`highlighted tab: ${tab.title}`)
+				console.log(win)
+			})
+		})
+
 		const item = document.createElement('li')
 		item.appendChild(favicon)
 		item.appendChild(btnClose)
-		item.appendChild(document.createTextNode(tab.title))
+		item.appendChild(title)
 		list.appendChild(item)
 	})
 })
