@@ -37,8 +37,14 @@ chrome.windows.getCurrent({ populate: true }, function(window) {
 			})
 		})
 
+		const favicon = image(tab.favIconUrl || '../../icons/icon19.png')
+		favicon.classList.add('tab-favicon')
+		favicon.addEventListener('onerror', err => {
+			console.log(err)
+		})
+
 		const item = document.createElement('li')
-		item.appendChild(image(tab.favIconUrl))
+		item.appendChild(favicon)
 		item.appendChild(btnClose)
 		item.appendChild(document.createTextNode(tab.title))
 		list.appendChild(item)
